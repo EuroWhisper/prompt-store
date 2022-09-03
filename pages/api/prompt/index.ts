@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient, prompt } from '@prisma/client';
+import validator from 'validator';
 
 const prisma = new PrismaClient();
 
@@ -9,12 +10,15 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Prompt | null>
 ) {
-  if (req.method === 'DELETE') {
-    const promptId = req.query.promptId as string;
+  if (req.method === 'POST') {
+    const { prompt } = req.body;
+    const sanitizedPrompt = validator.escape(prompt);
 
-    const prompt = await prisma.prompt.delete({
-      where: { id: parseInt(promptId) },
+    const newPrompt = await prisma.prompt.create({
+      data: {
+        prompt: sanitizedPrompt,
+      },
     });
-    res.json(prompt);
+    res.json(newPrompt);
   }
 }
