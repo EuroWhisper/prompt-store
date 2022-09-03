@@ -1,15 +1,44 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import { json } from "stream/consumers";
+import TextArea from "../components/TextArea";
+import Button from "../components/Button";
 import styles from "../styles/Home.module.css";
 import { Prompt } from "./api/prompts";
+import { useState } from "react";
 
 const Home: NextPage = () => {
-  const { data, isLoading, error } = useQuery(
+  const [prompt, setPrompt] = useState("");
+
+  const { data, isLoading, error, refetch } = useQuery(
     ["prompts"],
-    (): Promise<Prompt[]> => fetch("/api/prompts").then((res) => res.json())
+    fetchPrompts
   );
+
+  function fetchPrompts(): Promise<Prompt[]> {
+    return fetch("/api/prompts").then((res) => res.json());
+  }
+
+  const {
+    mutate,
+    data: savePromptData,
+    isLoading: isPosting,
+  } = useMutation(["prompt"], savePrompt);
+
+  function savePrompt(): Promise<Prompt> {
+    return fetch("/api/prompt", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ prompt }),
+    }).then((res) => {
+      refetch();
+      return res.json();
+    });
+  }
 
   console.log(data);
 
@@ -22,15 +51,11 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <h1 className={styles.title}>Prompt Store</h1>
 
-        <p className={styles.description}>
-          Get started by editing{" "}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
-
+        <p className={styles.description}>Store your favorite prompts!</p>
+        <TextArea onChange={handlePromptChange} />
+        <Button onClick={() => mutate()} />
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
             <h2>Documentation &rarr;</h2>
@@ -76,6 +101,10 @@ const Home: NextPage = () => {
       </footer>
     </div>
   );
+
+  function handlePromptChange(prompt: string) {
+    setPrompt(prompt);
+  }
 };
 
 export default Home;
