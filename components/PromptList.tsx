@@ -1,4 +1,4 @@
-import { Prompt } from "../pages/api/prompt/prompt";
+import { Prompt } from "../pages/api/prompt/create";
 import DataGrid, { Column } from "react-data-grid";
 import Button from "./Button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
