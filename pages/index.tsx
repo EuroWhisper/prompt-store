@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import Head from 'next/head';
 import type { NextPage } from 'next';
+import { signOut } from 'next-auth/react';
 import { useState } from 'react';
 
 import Button from '../components/Button';
@@ -55,6 +56,7 @@ const Home: NextPage = () => {
             <PromptList prompts={data} />
           </section>
         )}
+        <Button onClick={() => signOut()}>Sign out</Button>
       </main>
 
       <footer className={'mt-8 border-t-2 border-slate-600 text-center pt-2'}>
