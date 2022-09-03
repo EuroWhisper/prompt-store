@@ -21,12 +21,4 @@ export default async function handler(
     });
     res.json(newPrompt);
   }
-  if (req.method === "GET") {
-    const id = req.query.id as string;
-
-    const prompt = await prisma.prompt.findFirst({
-      where: { id: parseInt(id) },
-    });
-    res.json(prompt);
-  }
 }

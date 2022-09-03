@@ -29,7 +29,7 @@ const Home: NextPage = () => {
   } = useMutation(["prompt"], savePrompt);
 
   function savePrompt(): Promise<Prompt> {
-    return fetch("/api/prompt", {
+    return fetch("/api/prompt/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +56,7 @@ const Home: NextPage = () => {
 
         <p className={styles.description}>Store your favorite prompts!</p>
         <TextArea onChange={handlePromptChange} />
-        <Button onClick={() => mutate()} />
+        <Button onClick={() => mutate()}>Save prompt</Button>
 
         {data && data.length > 0 && <PromptList prompts={data} />}
       </main>
