@@ -28,7 +28,7 @@ const Home: NextPage = () => {
   } = useMutation(['prompt'], savePrompt);
 
   function savePrompt(): Promise<Prompt> {
-    return fetch('/api/prompt/create', {
+    return fetch('/api/prompt', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
