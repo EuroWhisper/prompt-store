@@ -56,7 +56,9 @@ const Home: NextPage = () => {
 
         <p className={styles.description}>Store your favorite prompts!</p>
         <TextArea onChange={handlePromptChange} />
-        <Button onClick={() => mutate()}>Save prompt</Button>
+        <div className="mt-2">
+          <Button onClick={() => mutate()}>Save prompt</Button>
+        </div>
 
         {data && data.length > 0 && (
           <section className="mt-8">
