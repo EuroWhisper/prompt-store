@@ -21,21 +21,37 @@ export default function PromptList(props: Props) {
       name: "Actions",
       width: 150,
       formatter: (column) => (
-        <>
-          <Button onClick={() => handleCopyPrompt(column.row.prompt)}>
-            Copy
-          </Button>
-          <Button onClick={() => deletePromptMutate(column.row.id.toString())}>
-            Delete
-          </Button>
-        </>
+        <div className="flex">
+          <div>
+            <Button
+              size="small"
+              onClick={() => handleCopyPrompt(column.row.prompt)}
+            >
+              Copy
+            </Button>
+          </div>
+          <div className="ml-2">
+            <Button
+              size="small"
+              onClick={() => deletePromptMutate(column.row.id.toString())}
+            >
+              Delete
+            </Button>
+          </div>
+        </div>
       ),
     },
   ];
 
   const rows = props.prompts;
 
-  return <DataGrid columns={columns} rows={rows} />;
+  return (
+    <DataGrid
+      className="border-gray-200 rounded-md"
+      columns={columns}
+      rows={rows}
+    />
+  );
 
   function deletePrompt(id: string): Promise<Prompt> {
     return fetch(`/api/prompt/${id}`, {

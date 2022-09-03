@@ -51,28 +51,21 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
+      <main className="container">
         <h1 className={styles.title}>Prompt Store</h1>
 
         <p className={styles.description}>Store your favorite prompts!</p>
         <TextArea onChange={handlePromptChange} />
         <Button onClick={() => mutate()}>Save prompt</Button>
 
-        {data && data.length > 0 && <PromptList prompts={data} />}
+        {data && data.length > 0 && (
+          <section className="mt-8">
+            <PromptList prompts={data} />
+          </section>
+        )}
       </main>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+      <footer className={styles.footer}>By Laurence Juden</footer>
     </div>
   );
 
