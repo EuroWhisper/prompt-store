@@ -10,9 +10,7 @@ type Props = {
 
 export default function PromptList(props: Props) {
   const queryClient = useQueryClient();
-
-  const { mutate: deletePromptMutate, isLoading: deletePromptIsLoading } =
-    useMutation(['prompt'], deletePrompt);
+  const { mutate: deletePromptMutate } = useMutation(['prompt'], deletePrompt);
 
   const columns: Column<Prompt>[] = [
     { key: 'id', name: 'ID', width: 50 },

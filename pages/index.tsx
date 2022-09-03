@@ -12,20 +12,13 @@ import styles from '../styles/Home.module.css';
 const Home: NextPage = () => {
   const [prompt, setPrompt] = useState('');
 
-  const { data, isLoading, error, refetch } = useQuery(
-    ['prompts'],
-    fetchPrompts
-  );
+  const { data, refetch } = useQuery(['prompts'], fetchPrompts);
 
   function fetchPrompts(): Promise<Prompt[]> {
     return fetch('/api/prompts').then((res) => res.json());
   }
 
-  const {
-    mutate,
-    data: savePromptData,
-    isLoading: isPosting,
-  } = useMutation(['prompt'], savePrompt);
+  const { mutate } = useMutation(['prompt'], savePrompt);
 
   function savePrompt(): Promise<Prompt> {
     return fetch('/api/prompt', {
