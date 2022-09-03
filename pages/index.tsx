@@ -8,6 +8,7 @@ import Button from "../components/Button";
 import styles from "../styles/Home.module.css";
 import { Prompt } from "./api/prompts";
 import { useState } from "react";
+import PromptList from "../components/PromptList";
 
 const Home: NextPage = () => {
   const [prompt, setPrompt] = useState("");
@@ -56,6 +57,8 @@ const Home: NextPage = () => {
         <p className={styles.description}>Store your favorite prompts!</p>
         <TextArea onChange={handlePromptChange} />
         <Button onClick={() => mutate()} />
+
+        {data && data.length > 0 && <PromptList prompts={data} />}
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
             <h2>Documentation &rarr;</h2>
