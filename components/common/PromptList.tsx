@@ -15,6 +15,7 @@ export default function PromptList(props: Props) {
   const columns: Column<Prompt>[] = [
     { key: 'id', name: 'ID', width: 50 },
     { key: 'prompt', name: 'Prompt', minWidth: 500 },
+    { key: 'seed', name: 'Seed', minWidth: 100 },
     {
       key: 'actions',
       name: 'Actions',
