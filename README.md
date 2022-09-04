@@ -1,25 +1,19 @@
 ## Environment Variables
 
+A .env file should be added to root of project directory with the following environment variables:
+
+- DATABASE_URL = URL to the database
 - GITHUB_ID = Github Oauth client ID
 - GITHUB_SECRET = Github Oauth client secret
 
 ## Getting Started
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
+1. `npm i` to install project dependencies
+2. Add the `.env` file with environment variables mentioned in the above section
+3. `npx prisma generate` to generate the Prisma client (no data or auth operations will work before doing so)
+4. Finally, run the development server with `npm run dev`
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
 ## Learn More
 
