@@ -14,7 +14,9 @@ export default function TopBar() {
       )}
       {status === 'authenticated' && (
         <div>
-          <Button onClick={handleSignOut}>Sign out</Button>
+          <Button color="warning" onClick={handleSignOut}>
+            Sign out
+          </Button>
         </div>
       )}
     </div>

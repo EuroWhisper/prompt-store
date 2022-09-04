@@ -2,7 +2,7 @@ import DataGrid, { Column } from 'react-data-grid';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import Button from './Button';
-import { Prompt } from '../pages/api/prompt';
+import { Prompt } from '../../pages/api/prompt/index';
 
 type Props = {
   prompts: Prompt[];
@@ -31,6 +31,8 @@ export default function PromptList(props: Props) {
           </div>
           <div className="ml-2">
             <Button
+              color="danger"
+              variant="outlined"
               size="small"
               onClick={() => deletePromptMutate(column.row.id.toString())}
             >
