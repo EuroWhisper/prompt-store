@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import classNames from 'classnames';
 
 type Props = {
@@ -8,12 +8,14 @@ type Props = {
   color?: 'primary' | 'warning' | 'danger';
   variant?: 'contained' | 'outlined';
   className?: string;
+  disabled?: boolean;
 };
 
 export default function Button({
   onClick,
   className,
   children,
+  disabled,
   color = 'primary',
   size = 'medium',
   variant,
@@ -33,13 +35,15 @@ export default function Button({
         variant === 'outlined' && color === 'warning',
       'border-red-500 hover:bg-red-500 text-red-500 hover:text-white':
         variant === 'outlined' && color === 'danger',
+      'bg-gray-500 hover:bg-gray-500 text-white': disabled,
     },
     className
   );
 
   return (
-    <button onClick={onClick} className={buttonClass}>
+    <button disabled={!!disabled} onClick={onClick} className={buttonClass}>
       {children}
     </button>
   );
+  1;
 }

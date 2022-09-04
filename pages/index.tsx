@@ -1,27 +1,22 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import Head from 'next/head';
 import type { NextPage } from 'next';
-import { useState } from 'react';
 
-import Button from '../components/common/Button';
 import { Prompt } from './api/prompts';
+import PromptForm from '../components/common/PromptForm';
 import PromptList from '../components/common/PromptList';
-import TextArea from '../components/common/TextArea';
 import TopBar from '../components/common/TopBar';
 import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
-  const [prompt, setPrompt] = useState('');
-
   const { data, refetch } = useQuery(['prompts'], fetchPrompts);
+  const { mutate: savePromptMutate } = useMutation(['prompt'], savePrompt);
 
   function fetchPrompts(): Promise<Prompt[]> {
     return fetch('/api/prompts').then((res) => res.json());
   }
 
-  const { mutate } = useMutation(['prompt'], savePrompt);
-
-  function savePrompt(): Promise<Prompt> {
+  function savePrompt(prompt: string): Promise<Prompt> {
     return fetch('/api/prompt', {
       method: 'POST',
       headers: {
@@ -46,11 +41,7 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>Prompt Store</h1>
 
         <p className={styles.description}>Store your favorite prompts!</p>
-        <TextArea onChange={handlePromptChange} />
-        <div className="mt-2">
-          <Button onClick={() => mutate()}>Save prompt</Button>
-        </div>
-
+        <PromptForm onSubmit={handlePromptSubmit} />
         {data && data.length > 0 && (
           <section className="mt-8">
             <PromptList prompts={data} />
@@ -64,8 +55,8 @@ const Home: NextPage = () => {
     </div>
   );
 
-  function handlePromptChange(prompt: string) {
-    setPrompt(prompt);
+  function handlePromptSubmit(prompt: string) {
+    savePromptMutate(prompt);
   }
 };
 
