@@ -9,7 +9,9 @@ datasource db {
 
 model prompt {
   id     Int    @id(map: "prompts_pkey") @default(autoincrement())
+  userId  String   
   prompt String @db.VarChar(255)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Account {
@@ -47,6 +49,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  prompts      prompt[]
 }
 
 model VerificationToken {
