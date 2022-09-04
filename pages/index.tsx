@@ -16,13 +16,19 @@ const Home: NextPage = () => {
     return fetch('/api/prompts').then((res) => res.json());
   }
 
-  function savePrompt(prompt: string): Promise<Prompt> {
+  function savePrompt(promptData: {
+    prompt: string;
+    seed?: string;
+  }): Promise<Prompt> {
     return fetch('/api/prompt', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ prompt }),
+      body: JSON.stringify({
+        prompt: promptData.prompt,
+        seed: promptData.seed || null,
+      }),
     }).then((res) => {
       refetch();
       return res.json();
@@ -55,8 +61,8 @@ const Home: NextPage = () => {
     </div>
   );
 
-  function handlePromptSubmit(prompt: string) {
-    savePromptMutate(prompt);
+  function handlePromptSubmit(prompt: string, seed?: string) {
+    savePromptMutate({ prompt, seed });
   }
 };
 

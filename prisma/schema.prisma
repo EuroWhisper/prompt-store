@@ -11,6 +11,7 @@ model prompt {
   id     Int    @id(map: "prompts_pkey") @default(autoincrement())
   userId  String   
   prompt String @db.VarChar(255)
+  seed   String? @db.VarChar(255)
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 

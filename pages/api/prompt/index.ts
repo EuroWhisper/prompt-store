@@ -21,13 +21,14 @@ export default async function handler(
       return;
     }
 
-    const { prompt } = req.body;
+    const { prompt, seed } = req.body;
     const sanitizedPrompt = validator.escape(prompt);
 
     const newPrompt = await prisma.prompt.create({
       data: {
         userId: session.user.id,
         prompt: sanitizedPrompt,
+        seed: seed,
       },
     });
     res.json(newPrompt);
