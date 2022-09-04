@@ -23,6 +23,7 @@ export default function PromptList(props: Props) {
         <div className="flex">
           <div>
             <Button
+              variant="outlined"
               size="small"
               onClick={() => handleCopyPrompt(column.row.prompt)}
             >
