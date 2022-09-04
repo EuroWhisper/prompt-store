@@ -11,6 +11,8 @@ A .env file should be added to root of project directory with the following envi
 - DATABASE_URL = URL to the database
 - GITHUB_ID = Github Oauth client ID
 - GITHUB_SECRET = Github Oauth client secret
+- GOOGLE_CLIENT_ID = Google Oauth client ID
+- GOOGLE_CLIENT_SECRET = Google Oauth client secret
 
 ## Getting Started
 
