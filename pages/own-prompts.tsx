@@ -1,7 +1,7 @@
 import { signIn, useSession } from 'next-auth/react';
 import { NextPage } from 'next';
 
-import TopBar from '../components/TopBar';
+import TopBar from '../components/common/TopBar';
 
 const OwnPrompts: NextPage = () => {
   const session = useSession();

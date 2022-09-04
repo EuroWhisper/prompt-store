@@ -1,15 +1,14 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import Head from 'next/head';
 import type { NextPage } from 'next';
-import { signOut } from 'next-auth/react';
 import { useState } from 'react';
 
-import Button from '../components/Button';
+import Button from '../components/common/Button';
 import { Prompt } from './api/prompts';
-import PromptList from '../components/PromptList';
-import TextArea from '../components/TextArea';
+import PromptList from '../components/common/PromptList';
+import TextArea from '../components/common/TextArea';
+import TopBar from '../components/common/TopBar';
 import styles from '../styles/Home.module.css';
-import TopBar from '../components/TopBar';
 
 const Home: NextPage = () => {
   const [prompt, setPrompt] = useState('');

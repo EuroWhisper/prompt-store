@@ -3,7 +3,7 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import Button from './Button';
 
 export default function TopBar() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
 
   return (
     <div className="p-4 border-b-2 border-b-stone-800 flex justify-end mb-4">
