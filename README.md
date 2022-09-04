@@ -1,3 +1,9 @@
+# Prompt Store
+
+This web application allows users to store their favourite prompts for use with their preferred AI art generation tool(s). A prompt is a string of text e.g. "A t-rex astronaut on Mars" entered into an AI art generation tool. Said tool then generates images related to the entered prompt.
+
+Some prompts are better than others and this project aims to help users not lose the prompts that yield them the best/most consistent results.
+
 ## Environment Variables
 
 A .env file should be added to root of project directory with the following environment variables:
@@ -15,14 +21,28 @@ A .env file should be added to root of project directory with the following envi
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Learn More
+## Next.js
 
-To learn more about Next.js, take a look at the following resources:
+This project uses Next.js with TypeScript. Although this
+is not a site where SEO is a priority and hence server rendering is not a necessity, Next.js is still used as its out of the box routing solution and API endpoints are very convenient. As well as being able to use next-auth for a robust authentication solution.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## TypeScript
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+This project uses TypeScript as I consider it to be a frontend best practice at this point and personally do not enjoy working on vanilla JS projects anymore. It helps to catch errors early and makes it easier to refactor code. The long-term time savings in exchange for short-term overhead of writing type definitions is a no-brainer in my opinion. All teams I have worked on have come to love TypeScript even if they were initially hesitant or confused by it.
+
+## REST API
+
+I am used to working with GraphQL and Apollo Client in particular in my day job. This is my preference, as GQL prevents over/under fetching and allows us to save time on FE by generating data fetching hooks and types directly from the schema. My most controversial opinion is probably that I believe GQL is a FE best practice because of the above.
+
+However, I decided to use a REST API for this project as from my experience GraphQL is seemingly very controversial amongst BE developers (possibly because most of them have been working with REST for so many years already) and I don't want to forget how to work with REST APIs, as I accept I will likely have to on the job again at some point.
+
+## React Query
+
+This project uses React Query to fetch data from the API. I had heard my colleagues say this library was good but had never used it before and I wanted to try it for myself. I am impressed by its convenient query and mutation hooks that are familiar from Apollo Client. However, I wish it could invalidate queries automatically when a mutation is performed on the same data, which is where Apollo Client shines.
+
+## Prisma
+
+This project uses Prisma as an ORM. I appreciate its generated types and the time saving it gifts me with. I have not used it in production yet but I am confident it will be a good choice.
 
 ## Deploy on Vercel
 
