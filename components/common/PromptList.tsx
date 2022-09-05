@@ -2,6 +2,7 @@ import DataGrid, { Column } from 'react-data-grid';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import Button from './Button';
+import Loader from './Loader';
 import { Prompt } from '../../pages/api/prompt/index';
 
 type Props = {
@@ -10,7 +11,8 @@ type Props = {
 
 export default function PromptList(props: Props) {
   const queryClient = useQueryClient();
-  const { mutate: deletePromptMutate } = useMutation(['prompt'], deletePrompt);
+  const { mutate: deletePromptMutate, isLoading: deletePromptLoading } =
+    useMutation(['prompt'], deletePrompt);
 
   const columns: Column<Prompt>[] = [
     { key: 'id', name: 'ID', width: 50 },
@@ -41,6 +43,7 @@ export default function PromptList(props: Props) {
               Delete
             </Button>
           </div>
+          <Loader open={deletePromptLoading} />
         </div>
       ),
     },
