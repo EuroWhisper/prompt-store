@@ -2,6 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import Head from 'next/head';
 import type { NextPage } from 'next';
 
+import Loader from '../components/common/Loader';
 import { Prompt } from './api/prompts';
 import PromptForm from '../components/common/PromptForm';
 import PromptList from '../components/common/PromptList';
@@ -9,8 +10,15 @@ import TopBar from '../components/common/TopBar';
 import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
-  const { data, refetch } = useQuery(['prompts'], fetchPrompts);
-  const { mutate: savePromptMutate } = useMutation(['prompt'], savePrompt);
+  const {
+    data,
+    isLoading: promptFetchLoading,
+    refetch,
+  } = useQuery(['prompts'], fetchPrompts);
+  const { mutate: savePromptMutate, isLoading: promptSaveLoading } =
+    useMutation(['prompt'], savePrompt);
+
+  const loading = promptFetchLoading || promptSaveLoading;
 
   function fetchPrompts(): Promise<Prompt[]> {
     return fetch('/api/prompts').then((res) => res.json());
@@ -58,6 +66,7 @@ const Home: NextPage = () => {
       <footer className={'mt-8 border-t-2 border-slate-600 text-center pt-2'}>
         By Laurence Juden
       </footer>
+      <Loader open={loading} />
     </div>
   );
 
