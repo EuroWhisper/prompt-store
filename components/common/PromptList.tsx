@@ -1,4 +1,3 @@
-import DataGrid, { Column } from 'react-data-grid';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import Button from './Button';
@@ -14,49 +13,39 @@ export default function PromptList(props: Props) {
   const { mutate: deletePromptMutate, isLoading: deletePromptLoading } =
     useMutation(['prompt'], deletePrompt);
 
-  const columns: Column<Prompt>[] = [
-    { key: 'id', name: 'ID', width: 50 },
-    { key: 'prompt', name: 'Prompt', minWidth: 500 },
-    { key: 'seed', name: 'Seed', minWidth: 100 },
-    {
-      key: 'actions',
-      name: 'Actions',
-      width: 150,
-      formatter: (column) => (
-        <div className="flex">
-          <div>
-            <Button
-              variant="outlined"
-              size="small"
-              onClick={() => handleCopyPrompt(column.row.prompt)}
-            >
-              Copy
-            </Button>
-          </div>
-          <div className="ml-2">
-            <Button
-              color="danger"
-              variant="outlined"
-              size="small"
-              onClick={() => deletePromptMutate(column.row.id.toString())}
-            >
-              Delete
-            </Button>
-          </div>
-          <Loader open={deletePromptLoading} />
-        </div>
-      ),
-    },
-  ];
-
-  const rows = props.prompts;
-
   return (
-    <DataGrid
-      className="border-gray-200 rounded-md"
-      columns={columns}
-      rows={rows}
-    />
+    <section>
+      {props.prompts.map((prompt) => {
+        return (
+          <div key={prompt.id} className="p-4 mb-4 bg-slate-700 rounded-md">
+            <p>{prompt.prompt}</p>
+            <p>{prompt.seed}</p>
+            <div className="flex mt-4">
+              <div>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={() => handleCopyPrompt(prompt.prompt)}
+                >
+                  Copy
+                </Button>
+              </div>
+              <div className="ml-2">
+                <Button
+                  color="danger"
+                  variant="outlined"
+                  size="small"
+                  onClick={() => deletePromptMutate(prompt.id.toString())}
+                >
+                  Delete
+                </Button>
+              </div>
+              <Loader open={deletePromptLoading} />
+            </div>
+          </div>
+        );
+      })}
+    </section>
   );
 
   function deletePrompt(id: string): Promise<Prompt> {
